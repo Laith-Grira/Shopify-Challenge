@@ -5,6 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  useEffect(() => {
+    const saved = window.localStorage.getItem("savedNomineeList");
+    setNominate(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("savedNomineeList", JSON.stringify(nominate));
+  });
+
   function showBanner() {
     const nomineesNumber = nominate.length;
     if (nomineesNumber === 0) {
