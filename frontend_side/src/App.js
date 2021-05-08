@@ -8,10 +8,20 @@ function App() {
   const [nominate, setNominate] = useState([]);
 
   function addNomination(event) {
-    let a = [];
-      Object.assign(a, nominate);
-      a.push(event);
-      setNominate(a);
+    let newNominate = [];
+    Object.assign(newNominate, nominate);
+    newNominate.push(event);
+    setNominate(newNominate);
+  }
+
+  function removeNomination(event) {
+    let newNominate = [];
+    nominate.forEach((element) => {
+      if (element !== event) {
+        newNominate.push(element);
+      }
+    });
+    setNominate(newNominate);
   }
 
   function filterResults(val) {
@@ -68,7 +78,7 @@ function App() {
           {
             nominate.map((res) => (
               <ul>
-                <li>{res.movie} <button>Remove</button></li>
+                <li>{res.movie} <button onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
