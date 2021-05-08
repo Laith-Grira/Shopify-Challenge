@@ -2,8 +2,8 @@
 Shopify fron-end challenge Fall 2021
 
 ## Purpose
-Shopify has branched out into movie award shows and needs an app to manage that.
-The application will help Shopify manage their movie nominations for the upcoming Shoppies.
+- Shopify has branched out into movie award shows and needs an app to manage that.
+- The application will help Shopify manage their movie nominations for the upcoming Shoppies.
 
 ## Main Page
 The main page includes an search bar for searching movies, a results section for the choosen movies, and a nomination list
