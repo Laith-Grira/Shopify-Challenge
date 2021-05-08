@@ -2,44 +2,20 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Banner from './components/BannerPage/Banner';
 
 function App() {
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem("savedNomineeList");
-    setNominate(JSON.parse(saved));
-  }, []);
+  // Data recieved from the OMDB website
+  const [OMDBdata, setOMDBdata] = useState([]);
 
-  useEffect(() => {
-    window.localStorage.setItem("savedNomineeList", JSON.stringify(nominate));
-  });
+  // Search input that the user inserts in the search bar
+  const [searchMovie, setSearchMovie] = useState("");
 
-  function showBanner() {
-    const nomineesNumber = nominate.length;
-    if (nomineesNumber === 0) {
-      return (<div className="banner-success alert alert-primary">
-                <p>Let's go! start choosing your nominees.</p>
-              </div>
-              );
-    } else if (nomineesNumber < 5) {
-      return (<div className="banner-success alert alert-info">
-                <p>Success, you still have {5 - nomineesNumber} nominees available to choose.</p>
-              </div>
-              );
-    } else if (nomineesNumber === 5) {
-      return (<div className="banner-success alert alert-success">
-                <p>Success, your List of nominations is full!</p>
-              </div>
-              );
-    } else {
-      return (<div className="banner-fail alert alert-danger">
-                <p>Error, cannot have more then 5 nominations</p>
-                <p>You have {nomineesNumber - 5} extra nominees</p>
-              </div>
-              );
-    }
-  }
+  // Nominations List of the user's selection
+  const [nominate, setNominate] = useState([]);
 
+  // Get the data from OMDB website throw an API key
   useEffect( () => {
     axios
     .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
@@ -51,12 +27,86 @@ function App() {
     .catch(err => console.log(err));
   });
 
-  const [OMDBdata, setOMDBdata] = useState([]);
+  // Save the user's Nominations List on refrech 
+  // and after quitting the website
+  useEffect(() => {
+    const saved = window.localStorage.getItem("savedNomineeList");
+    setNominate(JSON.parse(saved));
+  }, []);
 
-  const [searchMovie, setSearchMovie] = useState("");
+  useEffect(() => {
+    window.localStorage.setItem("savedNomineeList", JSON.stringify(nominate));
+  });
 
-  const [nominate, setNominate] = useState([]);
+  return (
+    <div className="App mt-3">
+      <h1>The Shoppies</h1>
+      <div className="search-bar mt-5 mb-3">
 
+        {/* Search bar input for searching the movies */}
+        <h3>Movie Title</h3>
+        <input  
+          className="search-text" 
+          type="text" 
+          placeholder="Search..." 
+          onChange={(e) => setSearchMovie(e.target.value)}/>
+      </div>
+
+      <div className="serach-results mb-3 pt-3">
+
+        {/* Display the search results of the user */}
+        <div className="results">
+          <h3 className="mb-3">Results for "{searchMovie}":</h3>
+          {
+            OMDBdata
+              .filter((val) => filterResults(val))
+              .map((res) => (
+              <ul key={res.imdbID}>
+                <li>{res.Title} &#40;{res.Year}&#41; 
+                    <button 
+                      className="btn btn-primary" 
+                      disabled={handleDisable(res)} 
+                      onClick={() => addNomination(res)}
+                      >Nominate
+                    </button>
+                </li>
+              </ul>
+            ))
+          }
+        </div>
+
+        {/* Display the nominations list of the user */}
+        <div className="nominations">
+          <h3 className="mb-3">Nominations</h3>
+          {
+            nominate.map((res) => (
+              <ul key={res.imdbID}>
+                <li>{res.Title} &#40;{res.Year}&#41;
+                    <button 
+                      className="btn btn-danger" 
+                      onClick={() => removeNomination(res)}
+                      >Remove
+                    </button>
+                </li>
+              </ul>
+            ))
+          }
+        </div>
+      </div>
+
+      {/* Banner component for showing messages to the users */}
+      <Banner count={nominate.length} />
+
+    </div>
+  );
+
+  
+  /* 
+    Helper method
+    Adds a nominated movie after the user's click
+    @param event : the movie that the user chooses
+    @return void
+  */
   function addNomination(event) {
     let newNominate = [];
     Object.assign(newNominate, nominate);
@@ -64,6 +114,13 @@ function App() {
     setNominate(newNominate);
   }
 
+  /* 
+    Helper method
+    Removie a nominated movie from the Nominations List
+    after the user's click
+    @param event : the movie that the user removes
+    @return void
+  */
   function removeNomination(event) {
     let newNominate = [];
     nominate.forEach((element) => {
@@ -74,61 +131,39 @@ function App() {
     setNominate(newNominate);
   }
 
-  function filterResults(val) {
+  /* 
+    Helper method
+    Filter the results to match starting caraters
+    of the search bar
+    @param movie : the movie selected in the array
+    @return value that matches the search
+  */
+  function filterResults(movie) {
     if (searchMovie === "") {
       return null;
-    } else if ((val.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
-      return val;
+    } else if ((movie.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
+      return movie;
     }
     return null;
   }
 
-  function handleDisable(val) {
+  /* 
+    Helper method
+    Disable the Nominate button after clicking
+    or enable it back after removing from the list
+    @param movie : the movie that the user selected
+    @return true if the movie already presented in 
+    the nominations list
+  */
+  function handleDisable(movie) {
     let valid = false;
     nominate.forEach((element) => {
-      if (element.Title === val.Title) {
+      if (element.Title === movie.Title) {
         valid = true;
       }
     });
     return valid;
   }
-
-  return (
-    <div className="App mt-3">
-      <h1>The Shoppies</h1>
-      <div className="search-bar mt-5 mb-3">
-        <h3>Movie Title</h3>
-        <input className="search-text" type="text" placeholder="Search..." onChange={(e) => setSearchMovie(e.target.value)}/>
-      </div>
-      <div className="serach-results mb-3 pt-3">
-        <div className="results">
-          <h3 className="mb-3">Results for "{searchMovie}":</h3>
-          {
-            OMDBdata
-              .filter((val) => filterResults(val))
-              .map((res) => (
-              <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-primary" disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
-              </ul>
-            ))
-          }
-        </div>
-        <div className="nominations">
-          <h3 className="mb-3">Nominations</h3>
-          {
-            nominate.map((res) => (
-              <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-danger" onClick={() => removeNomination(res)}>Remove</button></li>
-              </ul>
-            ))
-          }
-        </div>
-      </div>
-      <div className="banner-msg">
-        {showBanner()}
-      </div>
-    </div>
-  );
 }
 
 export default App;
