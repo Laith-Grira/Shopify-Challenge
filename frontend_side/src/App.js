@@ -33,6 +33,16 @@ function App() {
     return null;
   }
 
+  function handleDisable(val) {
+    let valid = false;
+    nominate.forEach((element) => {
+      if (element.movie === val.movie) {
+        valid = true;
+      }
+    });
+    return valid;
+  }
+
   const data = [
     {
       movie: 'Star wars',
@@ -68,7 +78,7 @@ function App() {
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul>
-                <li>{res.movie} <button onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.movie} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
