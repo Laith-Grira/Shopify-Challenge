@@ -6,15 +6,16 @@ import Banner from './components/BannerPage/Banner';
 
 function App() {
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem("savedNomineeList");
-    setNominate(JSON.parse(saved));
-  }, []);
+  // Data recieved from the OMDB website
+  const [OMDBdata, setOMDBdata] = useState([]);
 
-  useEffect(() => {
-    window.localStorage.setItem("savedNomineeList", JSON.stringify(nominate));
-  });
+  // Search input that the user inserts in the search bar
+  const [searchMovie, setSearchMovie] = useState("");
 
+  // Nominations List of the user's selection
+  const [nominate, setNominate] = useState([]);
+
+  // Get the data from OMDB website throw an API key
   useEffect( () => {
     axios
     .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
@@ -26,47 +27,16 @@ function App() {
     .catch(err => console.log(err));
   });
 
-  const [OMDBdata, setOMDBdata] = useState([]);
+  // Save the user's Nominations List on refrech 
+  // and after quitting the website
+  useEffect(() => {
+    const saved = window.localStorage.getItem("savedNomineeList");
+    setNominate(JSON.parse(saved));
+  }, []);
 
-  const [searchMovie, setSearchMovie] = useState("");
-
-  const [nominate, setNominate] = useState([]);
-
-  function addNomination(event) {
-    let newNominate = [];
-    Object.assign(newNominate, nominate);
-    newNominate.push(event);
-    setNominate(newNominate);
-  }
-
-  function removeNomination(event) {
-    let newNominate = [];
-    nominate.forEach((element) => {
-      if (element !== event) {
-        newNominate.push(element);
-      }
-    });
-    setNominate(newNominate);
-  }
-
-  function filterResults(val) {
-    if (searchMovie === "") {
-      return null;
-    } else if ((val.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
-      return val;
-    }
-    return null;
-  }
-
-  function handleDisable(val) {
-    let valid = false;
-    nominate.forEach((element) => {
-      if (element.Title === val.Title) {
-        valid = true;
-      }
-    });
-    return valid;
-  }
+  useEffect(() => {
+    window.localStorage.setItem("savedNomineeList", JSON.stringify(nominate));
+  });
 
   return (
     <div className="App mt-3">
@@ -129,6 +99,71 @@ function App() {
 
     </div>
   );
+
+  
+  /* 
+    Helper method
+    Adds a nominated movie after the user's click
+    @param event : the movie that the user chooses
+    @return void
+  */
+  function addNomination(event) {
+    let newNominate = [];
+    Object.assign(newNominate, nominate);
+    newNominate.push(event);
+    setNominate(newNominate);
+  }
+
+  /* 
+    Helper method
+    Removie a nominated movie from the Nominations List
+    after the user's click
+    @param event : the movie that the user removes
+    @return void
+  */
+  function removeNomination(event) {
+    let newNominate = [];
+    nominate.forEach((element) => {
+      if (element !== event) {
+        newNominate.push(element);
+      }
+    });
+    setNominate(newNominate);
+  }
+
+  /* 
+    Helper method
+    Filter the results to match starting caraters
+    of the search bar
+    @param movie : the movie selected in the array
+    @return value that matches the search
+  */
+  function filterResults(movie) {
+    if (searchMovie === "") {
+      return null;
+    } else if ((movie.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
+      return movie;
+    }
+    return null;
+  }
+
+  /* 
+    Helper method
+    Disable the Nominate button after clicking
+    or enable it back after removing from the list
+    @param movie : the movie that the user selected
+    @return true if the movie already presented in 
+    the nominations list
+  */
+  function handleDisable(movie) {
+    let valid = false;
+    nominate.forEach((element) => {
+      if (element.Title === movie.Title) {
+        valid = true;
+      }
+    });
+    return valid;
+  }
 }
 
 export default App;
