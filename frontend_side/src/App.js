@@ -40,7 +40,7 @@ function App() {
               .filter((val) => {
                 if (searchMovie === "") {
                   return val;
-                } else if (val.movie.startsWith(searchMovie)) {
+                } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
                   return val;
                 }
               })
