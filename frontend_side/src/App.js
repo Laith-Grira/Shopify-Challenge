@@ -34,12 +34,12 @@ function App() {
       </div>
       <div className="serach-results">
         <div className="results">
-          <h3>Results for</h3>
+          <h3>Results for "{searchMovie}"</h3>
           {
             data
               .filter((val) => {
                 if (searchMovie === "") {
-                  return val;
+                  return null;
                 } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
                   return val;
                 }
