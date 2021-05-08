@@ -1,7 +1,22 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+
+  useEffect( () => {
+    axios
+    .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
+    .then(res => {
+      let data = [];
+      data.push(res.data);
+      setOMDBdata(data);
+    })
+    .catch(err => console.log(err));
+  });
+
+  const [OMDBdata, setOMDBdata] = useState([]);
 
   const [searchMovie, setSearchMovie] = useState("");
 
