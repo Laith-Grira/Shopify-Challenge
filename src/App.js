@@ -16,7 +16,7 @@ function App() {
 
   // Get the data from OMDB website throw an API key
   useEffect( () => {
-    const url = "http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a";
+    const url = "https://www.omdbapi.com/?i=tt3896198&apikey=46cca29a";
     fetch(url).then(res => res.json())
               .then(res => {
                 let data = [];
