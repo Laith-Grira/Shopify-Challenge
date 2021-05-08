@@ -12,7 +12,7 @@ const Banner = (props) => {
                   );
         } else if (nomineesNumber < 5) {
           return (<div className=" alert alert-info">
-                    <p>Success, you still have {5 - nomineesNumber} nominees available to choose.</p>
+                    <p>Success, you still have <strong>{5 - nomineesNumber} nominees available</strong> to choose.</p>
                   </div>
                   );
         } else if (nomineesNumber === 5) {
@@ -23,7 +23,7 @@ const Banner = (props) => {
         } else {
           return (<div className="alert alert-danger">
                     <p>Error, cannot have more then 5 nominations</p>
-                    <p>You have {nomineesNumber - 5} extra nominees</p>
+                    <p>You have <strong>{nomineesNumber - 5} extra nominees</strong></p>
                   </div>
                   );
         }
