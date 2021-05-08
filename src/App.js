@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,15 +16,16 @@ function App() {
 
   // Get the data from OMDB website throw an API key
   useEffect( () => {
-    axios
-    .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
-    .then(res => {
-      let data = [];
-      data.push(res.data);
-      setOMDBdata(data);
-    })
-    .catch(err => console.log(err));
-  });
+    const url = "http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a";
+    fetch(url).then(res => res.json())
+              .then(res => {
+                let data = [];
+                data.push(res);
+                setOMDBdata(data);
+              })
+              .catch(err => console.log(err))
+  }, [])
+
 
   // Save the user's Nominations List on refrech 
   // and after quitting the website
