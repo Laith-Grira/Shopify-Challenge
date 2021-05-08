@@ -1,7 +1,22 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+
+  useEffect( () => {
+    axios
+    .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
+    .then(res => {
+      let data = [];
+      data.push(res.data);
+      setOMDBdata(data);
+    })
+    .catch(err => console.log(err));
+  });
+
+  const [OMDBdata, setOMDBdata] = useState([]);
 
   const [searchMovie, setSearchMovie] = useState("");
 
@@ -27,7 +42,7 @@ function App() {
   function filterResults(val) {
     if (searchMovie === "") {
       return null;
-    } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
+    } else if ((val.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
       return val;
     }
     return null;
@@ -36,7 +51,7 @@ function App() {
   function handleDisable(val) {
     let valid = false;
     nominate.forEach((element) => {
-      if (element.movie === val.movie) {
+      if (element.Title === val.Title) {
         valid = true;
       }
     });
@@ -72,13 +87,13 @@ function App() {
       </div>
       <div className="serach-results">
         <div className="results">
-          <h3>Results for "{searchMovie}"</h3>
+          <h3>Results for "{searchMovie}":</h3>
           {
-            data
+            OMDBdata
               .filter((val) => filterResults(val))
               .map((res) => (
-              <ul>
-                <li>{res.movie} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+              <ul key={res.imdbID}>
+                <li>{res.Title} &#40;{res.Year}&#41; <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
@@ -87,8 +102,8 @@ function App() {
           <h3>Nominations</h3>
           {
             nominate.map((res) => (
-              <ul>
-                <li>{res.movie} <button onClick={() => removeNomination(res)}>Remove</button></li>
+              <ul key={res.imdbID}>
+                <li>{res.Title} &#40;{res.Year}&#41; <button onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
