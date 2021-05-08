@@ -1,9 +1,35 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  function showBanner() {
+    const nomineesNumber = nominate.length;
+    if (nomineesNumber === 0) {
+      return (<div className="banner-success alert alert-primary">
+                <p>Let's go! start choosing your nominees.</p>
+              </div>
+              );
+    } else if (nomineesNumber < 5) {
+      return (<div className="banner-success alert alert-info">
+                <p>Success, you still have {5 - nomineesNumber} nominees available to choose.</p>
+              </div>
+              );
+    } else if (nomineesNumber === 5) {
+      return (<div className="banner-success alert alert-success">
+                <p>Success, your List of nominations is full!</p>
+              </div>
+              );
+    } else {
+      return (<div className="banner-fail alert alert-danger">
+                <p>Error, cannot have more then 5 nominations</p>
+                <p>You have {nomineesNumber - 5} extra nominees</p>
+              </div>
+              );
+    }
+  }
 
   useEffect( () => {
     axios
@@ -93,7 +119,7 @@ function App() {
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-primary" disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
@@ -103,11 +129,14 @@ function App() {
           {
             nominate.map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button onClick={() => removeNomination(res)}>Remove</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-danger" onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
         </div>
+      </div>
+      <div className="banner-msg">
+        {showBanner()}
       </div>
     </div>
   );
