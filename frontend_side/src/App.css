@@ -72,17 +72,6 @@
   width: 50%;
 }
 
-.banner-msg {
-  width: 60%;
-  margin-left: 20%;
-}
-
-.banner-msg > div {
-  width: 60%;
-  margin-left: 20%;
-  text-align: center;
-}
-
 ul {
   list-style-type:none;
 }

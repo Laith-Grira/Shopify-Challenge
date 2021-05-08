@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Banner from './components/BannerPage/Banner';
 
 function App() {
 
@@ -108,7 +109,13 @@ function App() {
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-primary" disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; 
+                    <button className="btn btn-primary" 
+                        disabled={handleDisable(res)} 
+                        onClick={() => addNomination(res)}
+                        >Nominate
+                    </button>
+                </li>
               </ul>
             ))
           }
@@ -124,9 +131,7 @@ function App() {
           }
         </div>
       </div>
-      <div className="banner-msg">
-        {showBanner()}
-      </div>
+      <Banner count={nominate.length} />
     </div>
   );
 }
