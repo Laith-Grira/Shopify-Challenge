@@ -42,7 +42,7 @@ function App() {
   function filterResults(val) {
     if (searchMovie === "") {
       return null;
-    } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
+    } else if ((val.Title.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
       return val;
     }
     return null;
@@ -51,7 +51,7 @@ function App() {
   function handleDisable(val) {
     let valid = false;
     nominate.forEach((element) => {
-      if (element.movie === val.movie) {
+      if (element.Title === val.Title) {
         valid = true;
       }
     });
@@ -89,11 +89,11 @@ function App() {
         <div className="results">
           <h3>Results for "{searchMovie}"</h3>
           {
-            data
+            OMDBdata
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul>
-                <li>{res.movie} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.Title} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
@@ -103,7 +103,7 @@ function App() {
           {
             nominate.map((res) => (
               <ul>
-                <li>{res.movie} <button onClick={() => removeNomination(res)}>Remove</button></li>
+                <li>{res.Title} <button onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
