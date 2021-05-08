@@ -1,4 +1,4 @@
-.App {
+.App > h1, .App > .search-bar{
   text-align: center;
 }
 
@@ -35,4 +35,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.serach-results {
+  display: flex;
+  width: 60%;
+  margin-left: 20%;
+}
+
+.serach-results > .nominations {
+  width: 50%;
+}
+
+.serach-results > .results {
+  width: 50%;
 }
