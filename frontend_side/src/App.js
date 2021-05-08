@@ -84,36 +84,16 @@ function App() {
     return valid;
   }
 
-  const data = [
-    {
-      movie: 'Star wars',
-      date: 1978,
-    },
-    {
-      movie: 'Fast and Furious',
-      date: 2001,
-    },
-    {
-      movie: 'End Game',
-      date: 2019,
-    },
-    {
-      movie: 'Click',
-      date: 2006,
-    },
-  ];
-
   return (
-    <div className="App">
+    <div className="App mt-3">
       <h1>The Shoppies</h1>
-      <div className="search-bar">
-        <label htmlFor="search">Movie Title</label>
-        <br />
-        <input type="text" placeholder="Type Movie Name Here" onChange={(e) => setSearchMovie(e.target.value)}/>
+      <div className="search-bar mt-5 mb-3">
+        <h3>Movie Title</h3>
+        <input className="search-text" type="text" placeholder="Search..." onChange={(e) => setSearchMovie(e.target.value)}/>
       </div>
-      <div className="serach-results">
+      <div className="serach-results mb-3 pt-3">
         <div className="results">
-          <h3>Results for "{searchMovie}":</h3>
+          <h3 className="mb-3">Results for "{searchMovie}":</h3>
           {
             OMDBdata
               .filter((val) => filterResults(val))
@@ -125,7 +105,7 @@ function App() {
           }
         </div>
         <div className="nominations">
-          <h3>Nominations</h3>
+          <h3 className="mb-3">Nominations</h3>
           {
             nominate.map((res) => (
               <ul key={res.imdbID}>

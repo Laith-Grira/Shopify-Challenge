@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+.App {
+  text-align: center;
+  font-family: 'lato', sans-serif;
+}
+
 .App > h1, .App > .search-bar{
   text-align: center;
 }
@@ -39,10 +46,23 @@
 
 .serach-results {
   display: flex;
-  height: 300px;
+  min-height: 300px;
   width: 60%;
   margin-left: 20%;
+  background-color: whitesmoke;
 }
+
+.search-text {
+  width: 20%;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+
+.search-text:focus { 
+  outline: none;
+  background-color: whitesmoke;
+}
+
 
 .serach-results > .nominations {
   width: 50%;
@@ -61,4 +81,8 @@
   width: 60%;
   margin-left: 20%;
   text-align: center;
+}
+
+ul {
+  list-style-type:none;
 }
