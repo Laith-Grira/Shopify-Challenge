@@ -5,6 +5,34 @@ function App() {
 
   const [searchMovie, setSearchMovie] = useState("");
 
+  const [nominate, setNominate] = useState([]);
+
+  function addNomination(event) {
+    let newNominate = [];
+    Object.assign(newNominate, nominate);
+    newNominate.push(event);
+    setNominate(newNominate);
+  }
+
+  function removeNomination(event) {
+    let newNominate = [];
+    nominate.forEach((element) => {
+      if (element !== event) {
+        newNominate.push(element);
+      }
+    });
+    setNominate(newNominate);
+  }
+
+  function filterResults(val) {
+    if (searchMovie === "") {
+      return null;
+    } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
+      return val;
+    }
+    return null;
+  }
+
   const data = [
     {
       movie: 'Star wars',
@@ -37,27 +65,21 @@ function App() {
           <h3>Results for "{searchMovie}"</h3>
           {
             data
-              .filter((val) => {
-                if (searchMovie === "") {
-                  return null;
-                } else if ((val.movie.toLowerCase()).startsWith(searchMovie.toLowerCase())) {
-                  return val;
-                }
-              })
+              .filter((val) => filterResults(val))
               .map((res) => (
               <ul>
-            <li>{res.movie} <button>Nominate</button></li>
-          </ul>
+                <li>{res.movie} <button onClick={() => addNomination(res)}>Nominate</button></li>
+              </ul>
             ))
           }
         </div>
         <div className="nominations">
           <h3>Nominations</h3>
           {
-            data.map((res) => (
+            nominate.map((res) => (
               <ul>
-            <li>{res.movie} <button>Remove</button></li>
-          </ul>
+                <li>{res.movie} <button onClick={() => removeNomination(res)}>Remove</button></li>
+              </ul>
             ))
           }
         </div>
