@@ -1,9 +1,35 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  function showBanner() {
+    const nomineesNumber = nominate.length;
+    if (nomineesNumber === 0) {
+      return (<div className="banner-success alert alert-primary">
+                <p>Let's go! start choosing your nominees.</p>
+              </div>
+              );
+    } else if (nomineesNumber < 5) {
+      return (<div className="banner-success alert alert-info">
+                <p>Success, you still have {5 - nomineesNumber} nominees available to choose.</p>
+              </div>
+              );
+    } else if (nomineesNumber === 5) {
+      return (<div className="banner-success alert alert-success">
+                <p>Success, your List of nominations is full!</p>
+              </div>
+              );
+    } else {
+      return (<div className="banner-fail alert alert-danger">
+                <p>Error, cannot have more then 5 nominations</p>
+                <p>You have {nomineesNumber - 5} extra nominees</p>
+              </div>
+              );
+    }
+  }
 
   useEffect( () => {
     axios
@@ -58,56 +84,39 @@ function App() {
     return valid;
   }
 
-  const data = [
-    {
-      movie: 'Star wars',
-      date: 1978,
-    },
-    {
-      movie: 'Fast and Furious',
-      date: 2001,
-    },
-    {
-      movie: 'End Game',
-      date: 2019,
-    },
-    {
-      movie: 'Click',
-      date: 2006,
-    },
-  ];
-
   return (
-    <div className="App">
+    <div className="App mt-3">
       <h1>The Shoppies</h1>
-      <div className="search-bar">
-        <label htmlFor="search">Movie Title</label>
-        <br />
-        <input type="text" placeholder="Type Movie Name Here" onChange={(e) => setSearchMovie(e.target.value)}/>
+      <div className="search-bar mt-5 mb-3">
+        <h3>Movie Title</h3>
+        <input className="search-text" type="text" placeholder="Search..." onChange={(e) => setSearchMovie(e.target.value)}/>
       </div>
-      <div className="serach-results">
+      <div className="serach-results mb-3 pt-3">
         <div className="results">
-          <h3>Results for "{searchMovie}":</h3>
+          <h3 className="mb-3">Results for "{searchMovie}":</h3>
           {
             OMDBdata
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-primary" disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
         </div>
         <div className="nominations">
-          <h3>Nominations</h3>
+          <h3 className="mb-3">Nominations</h3>
           {
             nominate.map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} &#40;{res.Year}&#41; <button onClick={() => removeNomination(res)}>Remove</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button className="btn btn-danger" onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
         </div>
+      </div>
+      <div className="banner-msg">
+        {showBanner()}
       </div>
     </div>
   );
