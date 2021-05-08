@@ -20,14 +20,14 @@ Shopify fron-end challenge Fall 2021
 - The `Nominate` button in the results list will be disable so that the user doesn't nominate the same movie again
 - In the nominations list, the nominated movie will have a `remove` button next to it, so that the user will be able to delete a nomination
 - If the nomination is deleted, the `Nominate` button will be enable again in the search reults so that the user can reselect it again in the future
-- A banner will appear in the button, telling the user how many nominees left to reach 5 nominees, if more then 5 nominees are selected, the banner will change it's color to red and tells the user that he has surpassed 5 nominees, and also shows how many extra nominees they have.
+- A banner will appear in the button, telling the user how many nominees left to reach 5 nominees, if more then 5 nominees are selected, the banner will change it's color to red and tells the users that they have surpassed 5 nominees, and also shows how many extra nominees they have.
 ![image](https://user-images.githubusercontent.com/59850587/117552631-a0e60700-b01a-11eb-9b3c-d09d26652f72.png)
 
 ## Extras
 ### Option choosen: 
 - Save nomination lists if the user leaves the page
 ### Details
-The website allows users to have their changes saved after choosing to leave the page and after reload
+- The website allows users to have their changes saved after choosing to leave, keeping all of their `Nominations` list saved.
 
 
 
