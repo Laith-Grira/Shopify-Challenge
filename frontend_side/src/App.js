@@ -18,7 +18,7 @@ function App() {
   // Get the data from OMDB website throw an API key
   useEffect( () => {
     axios
-    .get('http://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
+    .get('https://www.omdbapi.com/?i=tt3896198&apikey=46cca29a')
     .then(res => {
       let data = [];
       data.push(res.data);
