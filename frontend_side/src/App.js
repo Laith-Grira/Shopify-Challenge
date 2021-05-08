@@ -92,7 +92,7 @@ function App() {
             OMDBdata
               .filter((val) => filterResults(val))
               .map((res) => (
-              <ul>
+              <ul key={res.imdbID}>
                 <li>{res.Title} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
@@ -102,7 +102,7 @@ function App() {
           <h3>Nominations</h3>
           {
             nominate.map((res) => (
-              <ul>
+              <ul key={res.imdbID}>
                 <li>{res.Title} <button onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
