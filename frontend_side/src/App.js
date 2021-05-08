@@ -87,13 +87,13 @@ function App() {
       </div>
       <div className="serach-results">
         <div className="results">
-          <h3>Results for "{searchMovie}"</h3>
+          <h3>Results for "{searchMovie}":</h3>
           {
             OMDBdata
               .filter((val) => filterResults(val))
               .map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button disabled={handleDisable(res)} onClick={() => addNomination(res)}>Nominate</button></li>
               </ul>
             ))
           }
@@ -103,7 +103,7 @@ function App() {
           {
             nominate.map((res) => (
               <ul key={res.imdbID}>
-                <li>{res.Title} <button onClick={() => removeNomination(res)}>Remove</button></li>
+                <li>{res.Title} &#40;{res.Year}&#41; <button onClick={() => removeNomination(res)}>Remove</button></li>
               </ul>
             ))
           }
