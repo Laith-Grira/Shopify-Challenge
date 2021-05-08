@@ -40,7 +40,7 @@ function App() {
               .filter((val) => {
                 if (searchMovie === "") {
                   return val;
-                } else if (val.movie.includes(searchMovie)) {
+                } else if (val.movie.startsWith(searchMovie)) {
                   return val;
                 }
               })
