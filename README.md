@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Shopify-Challenge
+Shopify fron-end challenge Fall 2021
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Purpose
+- Shopify has branched out into movie award shows and needs an app to manage that.
+- The application will help Shopify manage their movie nominations for the upcoming Shoppies.
 
-## Available Scripts
+## Main Page
+- The main page includes an search bar for searching movies, a results section for the choosen movies, and a nomination list
+![image](https://user-images.githubusercontent.com/59850587/117552488-9f680f00-b019-11eb-8196-39240fc7e3b4.png)
 
-In the project directory, you can run:
+## Searching a movie
+- Each user's input will filter the results from the OMDB website to display the results.
+- Each movie result will have the ttle of the movie, its relase date and a button to nominate that movie.
+- A banner will appear to tell the user to start searching for movies
+![image](https://user-images.githubusercontent.com/59850587/117552499-b1e24880-b019-11eb-9319-cfe28eda1c16.png)
 
-### `npm start`
+## Nominate a movie
+- If the user clicks on button `Nominate` nest to the movie's title, the desirable movie will appear in the Nominations list
+- The `Nominate` button in the results list will be disable so that the user doesn't nominate the same movie again
+- In the nominations list, the nominated movie will have a `remove` button next to it, so that the user will be able to delete a nomination
+- If the nomination is deleted, the `Nominate` button will be enable again in the search reults so that the user can reselect it again in the future
+- A banner will appear in the button, telling the user how many nominees left to reach 5 nominees, if more then 5 nominees are selected, the banner will change it's color to red and tells the users that they have surpassed 5 nominees, and also shows how many extra nominees they have.
+![image](https://user-images.githubusercontent.com/59850587/117552631-a0e60700-b01a-11eb-9b3c-d09d26652f72.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Extras
+### Option choosen: 
+- Save nomination lists if the user leaves the page
+### Details
+- The website allows users to have their changes saved after choosing to leave, keeping all of their `Nominations` list saved.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
