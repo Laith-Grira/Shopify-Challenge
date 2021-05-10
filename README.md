@@ -1,8 +1,9 @@
 # Shopify-Challenge
 Shopify fron-end challenge Fall 2021
 
-# A link to test the application is here
+# Link to test the application is here
 https://suspicious-einstein-485d22.netlify.app/
+- Please refrech the page if it doesn't work at the first try.
 
 # Important Note
 The API key that I got from the Challenge description, does contain only one movie which is "Guardian of the Galexy Vol 2 (2017)
