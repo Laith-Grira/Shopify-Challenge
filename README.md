@@ -9,6 +9,7 @@ https://suspicious-einstein-485d22.netlify.app/
 The API key that I got from the Challenge description, does contain only one movie which is "Guardian of the Galexy Vol 2 (2017)
 If you want to test the app, try that movie name.
 
+# Application description
 ## Purpose
 - Shopify has branched out into movie award shows and needs an app to manage that.
 - The application will help Shopify manage their movie nominations for the upcoming Shoppies.
